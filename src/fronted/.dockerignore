@@ -16,8 +16,7 @@ sketch
 
 ### NextJS template
 # dependencies
-/node_modules
-/.pnp
+.pnp
 .pnp.js
 
 # testing

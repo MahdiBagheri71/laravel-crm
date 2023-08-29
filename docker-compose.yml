@@ -38,8 +38,10 @@ services:
             context: .
             dockerfile: src/fronted/Dockerfile
         restart: unless-stopped
+        environment:
+            - "APP_ENV=${APP_ENV}"
         volumes:
-            - ./src/fronted:/var/www/fronted
+            - ./src/fronted:/app
         networks:
             - laravel_crm
     webserver:

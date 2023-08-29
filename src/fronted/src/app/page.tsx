@@ -1,3 +1,4 @@
 export default function Home() {
-  return <div>Start ... </div>;
+  // @ts-ignore
+  return <div>CRM Start... </div>;
 }

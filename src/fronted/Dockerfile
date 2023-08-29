@@ -5,7 +5,7 @@ FROM node:16
 WORKDIR /app
 
 # Copy the package.json and yarn.lock files to the container
-COPY ./src/fronted/ /app
+COPY ./src/fronted /app
 
 # Install the application's dependencies
 RUN yarn install
@@ -14,4 +14,4 @@ RUN yarn install
 RUN yarn build
 
 # Specify the command to run when the container starts
-CMD [ "yarn", "start" ]
+CMD [ "sh", "-c", "if [ \"$APP_ENV\" = \"development\" ]; then yarn dev; else yarn start; fi" ]
