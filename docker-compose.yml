@@ -3,7 +3,7 @@ services:
     app:
         build:
             context: .
-            dockerfile: Dockerfile
+            dockerfile: src/backend/Dockerfile
         volumes:
             - ./src:/var/www
         environment:
