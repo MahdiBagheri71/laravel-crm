@@ -29,7 +29,11 @@ COPY ./src /var/www
 # Install dependencies
 RUN composer install  --working-dir=/var/www/backend
 
-# Copy supervisor config
-COPY supervisord/default.conf /etc/supervisor/conf.d/supervisord.conf
+# Copy supervisor config and entrypoint script
+COPY files/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
+COPY files/entrypoint.sh /usr/local/bin/entrypoint.sh
 
-CMD ["/usr/bin/supervisord"]
+# Make entrypoint script executable and run it on container start-up.
+RUN chmod +x /usr/local/bin/entrypoint.sh
+
+CMD ["/usr/local/bin/entrypoint.sh"]

@@ -1,4 +1,4 @@
 # laravel-crm
 run :
 
-`docker compose --env-file src/backend/.env up`
+`docker compose --env-file .env.example up`

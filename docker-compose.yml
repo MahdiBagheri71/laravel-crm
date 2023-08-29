@@ -1,11 +1,27 @@
 version: '3'
 services:
+    mysql:
+        image: mysql:5.7.22
+        restart: unless-stopped
+        tty: true
+        ports:
+            - "3306"
+        environment:
+            MYSQL_DATABASE: ${DB_DATABASE}
+            MYSQL_USER: ${DB_USERNAME}
+            MYSQL_PASSWORD: ${DB_PASSWORD}
+            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+        volumes:
+            - db_data:/var/lib/mysql
+        networks:
+            - laravel_crm
     app:
         build:
             context: .
             dockerfile: src/backend/Dockerfile
         volumes:
             - ./src:/var/www
+            - ./files/entrypoint.sh:/usr/local/bin/entrypoint.sh # Add this line to mount the entrypoint script into the container.
         environment:
             - "DB_CONNECTION=mysql"
             - "DB_HOST=mysql"
@@ -26,22 +42,6 @@ services:
             - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
         networks:
             - laravel_crm
-    mysql:
-        image: mysql:5.7.22
-        restart: unless-stopped
-        tty: true
-        ports:
-            - "3306"
-        environment:
-            MYSQL_DATABASE: ${DB_DATABASE}
-            MYSQL_USER: ${DB_USERNAME}
-            MYSQL_PASSWORD: ${DB_PASSWORD}
-            MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
-        volumes:
-            - db_data:/var/lib/mysql
-        networks:
-            - laravel_crm
-
 volumes:
     db_data:
 networks:
