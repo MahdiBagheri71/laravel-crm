@@ -21,10 +21,10 @@ RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Set working directory
-WORKDIR /var/www
+WORKDIR /var/www/backend
 
 # Copy existing application directory contents
-COPY ./src /var/www
+COPY ./src/backend /var/www/backend
 
 # Install dependencies
 RUN composer install  --working-dir=/var/www/backend
